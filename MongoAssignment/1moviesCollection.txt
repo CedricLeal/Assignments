@@ -1,0 +1,406 @@
+
+db.movies.insert({title:"Fight Club", writer: "Chuck Palahniuk", year: 1994, actors:["Brad Pitt", "Edward Norton"]})
+
+db.movies.insertMany([{title: "Inglorious Basterds", writer: "Quentin Tarantino", year: 2009, actors:["Brad Pitt", "Diane Kruger", "Eli Roth"]}, 
+			{title: "Pulp fiction", writer: "Quentino Tarantino", year: 1994, actors:["John Travolta", "Uma Thurman"]}, 
+			{title: "The Hobbit: An Unexpected Journey", writer: "J.R.R. Tolkein", year: 2012, franchise: "The Hobbit"}, 
+			{title:"The Hobbit: The Desolation of Smaug", writer: "J.R.R. Tolkein", year: 2013, franchise: "The Hobbit"}, 
+			{title: "The Hobbit: The battle of the Five Armies", writer: "J.R.R. Tolkein", year: 2012, franchise: "The Hobbit", 
+			synopsis: "Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from 
+			falling into thehands of a rising darkness."}, 
+			{title: "Pee Wee Herman's Big Adventure"}, 
+			{title: "Avatar"}])
+
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("6245e985d3fab138f61bc893"),
+                ObjectId("6245e985d3fab138f61bc894"),
+                ObjectId("6245e985d3fab138f61bc895"),
+                ObjectId("6245e985d3fab138f61bc896"),
+                ObjectId("6245e985d3fab138f61bc897"),
+                ObjectId("6245e985d3fab138f61bc898"),
+                ObjectId("6245e985d3fab138f61bc899")
+        ]
+}
+
+
+
+FIND METHODS
+Q1. Get all documents
+
+> db.movies.find().pretty()
+{
+        "_id" : ObjectId("6245e36fd3fab138f61bc892"),
+        "title" : "Fight Club",
+        "writer" : "Chuck Palahniuk",
+        "year" : 1999,
+        "actors" : [
+                "Brad Pitt",
+                "Edward Norton"
+        ]
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc893"),
+        "title" : "Inglorious Basterds",
+        "writer" : "Quentin Tarantino",
+        "year" : 2009,
+        "actors" : [
+                "Brad Pitt",
+                "Diane Kruger",
+                "Eli Roth"
+        ]
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc894"),
+        "title" : "Pulp Fiction",
+        "writer" : "Quentin Tarantino",
+        "year" : 1994,
+        "actors" : [
+                "John Travolta",
+                "Uma Thurman"
+        ]
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc895"),
+        "title" : "The Hobbit: An Unexpected Journey",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2012,
+        "franchise" : "The Hobbit"
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc896"),
+        "title" : "The Hobbit: The Desolation of Smaug",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2013,
+        "franchise" : "The Hobbit"
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc897"),
+        "title" : "The Hobbit: The battle of the Five Armies",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2012,
+        "franchise" : "The Hobbit",
+        "synopsis" : "Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into thehands of a rising darkness."
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc898"),
+        "title" : "Pee Wee Herman's Big Adventure"
+}
+{ "_id" : ObjectId("6245e985d3fab138f61bc899"), "title" : "Avatar" }
+
+
+
+
+
+Q2.Get all documents with writer set to "Quentin Tarantino"
+
+> db.movies.find({writer: "Quentin Tarantino"}).pretty()
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc893"),
+        "title" : "Inglorious Basterds",
+        "writer" : "Quentin Tarantino",
+        "year" : 2009,
+        "actors" : [
+                "Brad Pitt",
+                "Diane Kruger",
+                "Eli Roth"
+        ]
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc894"),
+        "title" : "Pulp Fiction",
+        "writer" : "Quentin Tarantino",
+        "year" : 1994,
+        "actors" : [
+                "John Travolta",
+                "Uma Thurman"
+        ]
+}
+
+
+
+
+
+Q3.Get all documents where actors include "Brad Pitt"
+> db.movies.find({actors: "Brad Pitt"}).pretty()
+{
+        "_id" : ObjectId("6245e36fd3fab138f61bc892"),
+        "title" : "Fight Club",
+        "writer" : "Chuck Palahniuk",
+        "year" : 1999,
+        "actors" : [
+                "Brad Pitt",
+                "Edward Norton"
+        ]
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc893"),
+        "title" : "Inglorious Basterds",
+        "writer" : "Quentin Tarantino",
+        "year" : 2009,
+        "actors" : [
+                "Brad Pitt",
+                "Diane Kruger",
+                "Eli Roth"
+        ]
+}
+
+
+
+
+
+Q4. get all documents with franchise set to "The Hobbit"
+
+> db.movies.find({franchise: "The Hobbit"}).pretty()
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc895"),
+        "title" : "The Hobbit: An Unexpected Journey",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2012,
+        "franchise" : "The Hobbit"
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc896"),
+        "title" : "The Hobbit: The Desolation of Smaug",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2013,
+        "franchise" : "The Hobbit"
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc897"),
+        "title" : "The Hobbit: The battle of the Five Armies",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2012,
+        "franchise" : "The Hobbit",
+        "synopsis" : "Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into thehands of a rising darkness."
+}
+
+
+
+
+
+Q5.get all movies released in the 90s
+> db.movies.find({year: {$gt: 1990, $lt: 2000}}).pretty()
+{
+        "_id" : ObjectId("6245e36fd3fab138f61bc892"),
+        "title" : "Fight Club",
+        "writer" : "Chuck Palahniuk",
+        "year" : 1999,
+        "actors" : [
+                "Brad Pitt",
+                "Edward Norton"
+        ]
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc894"),
+        "title" : "Pulp Fiction",
+        "writer" : "Quentin Tarantino",
+        "year" : 1994,
+        "actors" : [
+                "John Travolta",
+                "Uma Thurman"
+        ]
+}
+
+
+
+
+
+Q6. get all movies released before the year 2000 or after 2010
+
+> db.movies.find({$or: [{year: {$lt: 2000}}, {year: {$gt: 2010}}]}).pretty()
+{
+        "_id" : ObjectId("6245e36fd3fab138f61bc892"),
+        "title" : "Fight Club",
+        "writer" : "Chuck Palahniuk",
+        "year" : 1999,
+        "actors" : [
+                "Brad Pitt",
+                "Edward Norton"
+        ]
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc894"),
+        "title" : "Pulp Fiction",
+        "writer" : "Quentin Tarantino",
+        "year" : 1994,
+        "actors" : [
+                "John Travolta",
+                "Uma Thurman"
+        ]
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc895"),
+        "title" : "The Hobbit: An Unexpected Journey",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2012,
+        "franchise" : "The Hobbit"
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc896"),
+        "title" : "The Hobbit: The Desolation of Smaug",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2013,
+        "franchise" : "The Hobbit"
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc897"),
+        "title" : "The Hobbit: The battle of the Five Armies",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2012,
+        "franchise" : "The Hobbit",
+        "synopsis" : "Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into thehands of a rising darkness."
+
+######################################################################################
+Q7.add an actor named "Samuel L. Jackson" to the movie "Pulp Fiction"
+
+> db.movies.updateOne({_id:ObjectId("6245e985d3fab138f61bc894")}, {$push:{actors:"Samuel L. Jackson"}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+
+
+
+Q8. 
+> db.movies.update({title: "The Hobbit: An Unexpected Journey"}, {$set: {synopsis:"A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug."}})
+WriteResult({ "nMatched" : 1, "nUpserted" : 0, "nModified" : 1 })
+
+
+
+
+Q9. add a synopsis to "The Hobbit: The Desolation of Smaug" : "The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring."
+
+
+
+
+Q10. db.movies.updateOne({_id: ObjectId("6245e985d3fab138f61bc896")},  {$set: {synopsis:"The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring."}})
+{ "acknowledged" : true, "matchedCount" : 1, "modifiedCount" : 1 }
+
+
+
+
+
+Q11. find all movies that have a synopsis that contains the word "Bilbo"
+> db.movies.find({synopsis:{$regex: "Bilbo"}}).pretty()
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc895"),
+        "title" : "The Hobbit: An Unexpected Journey",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2012,
+        "franchise" : "The Hobbit",
+        "synopsis" : "A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug."
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc896"),
+        "title" : "The Hobbit: The Desolation of Smaug",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2013,
+        "franchise" : "The Hobbit",
+        "synopsis" : "The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring."
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc897"),
+        "title" : "The Hobbit: The battle of the Five Armies",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2012,
+        "franchise" : "The Hobbit",
+        "synopsis" : "Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into thehands of a rising darkness."
+}
+
+
+
+
+
+Q12. find all movies that have a synopsis that contains the word "Gandalf"
+> db.movies.find({synopsis:{$regex: "Gandalf"}}).pretty()
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc896"),
+        "title" : "The Hobbit: The Desolation of Smaug",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2013,
+        "franchise" : "The Hobbit",
+        "synopsis" : "The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring."
+}
+
+
+
+
+
+Q13. find all movies that have a synopsis that contains the word "Bilbo" and not the word "Gandalf"
+> db.movies.find({$and:[{synopsis:{$regex: "Bilbo"}}, {synopsis: {$not:{$regex: "Gandalf"}}}]}).pretty()
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc895"),
+        "title" : "The Hobbit: An Unexpected Journey",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2012,
+        "franchise" : "The Hobbit",
+        "synopsis" : "A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug."
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc897"),
+        "title" : "The Hobbit: The battle of the Five Armies",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2012,
+        "franchise" : "The Hobbit",
+        "synopsis" : "Bilbo and Company are forced to engage in a war against an array of combatants and keep the Lonely Mountain from falling into thehands of a rising darkness."
+}
+
+
+
+
+
+
+
+Q14. find all movies that have a synopsis that contains the word "dwarves" or "hobbit"
+> db.movies.find({$or:[{synopsis:{$regex: "dwarves"}}, {synopsis: {$regex: "hobbit"}}]}).pretty()
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc895"),
+        "title" : "The Hobbit: An Unexpected Journey",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2012,
+        "franchise" : "The Hobbit",
+        "synopsis" : "A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug."
+}
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc896"),
+        "title" : "The Hobbit: The Desolation of Smaug",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2013,
+        "franchise" : "The Hobbit",
+        "synopsis" : "The dwarves, along with Bilbo Baggins and Gandalf the Grey, continue their quest to reclaim Erebor, their homeland, from Smaug. Bilbo Baggins is in possession of a mysterious and magical ring."
+}
+
+
+
+
+
+Q15. find all movies that have a synopsis that contains the word "gold" and "dragon"
+> db.movies.find({$and:[{synopsis:{$regex: "gold"}}, {synopsis: {$regex: "dragon"}}]}).pretty()
+{
+        "_id" : ObjectId("6245e985d3fab138f61bc895"),
+        "title" : "The Hobbit: An Unexpected Journey",
+        "writer" : "J.R.R. Tolkein",
+        "year" : 2012,
+        "franchise" : "The Hobbit",
+        "synopsis" : "A reluctant hobbit, Bilbo Baggins, sets out to the Lonely Mountain with a spirited group of dwarves to reclaim their mountain home - and the gold within it - from the dragon Smaug."
+}
+
+
+
+
+
+Q16. delete the movie "Pee Wee Herman's Big Adventure"
+> db.movies.remove({_id: ObjectId("6245e985d3fab138f61bc898")})
+WriteResult({ "nRemoved" : 1 })
+
+
+
+
+Q17. delete the movie "Avatar"#
+> db.movies.remove({_id: ObjectId("6245e985d3fab138f61bc899")})
+WriteResult({ "nRemoved" : 1 })
+
+
+
+
+

@@ -1,0 +1,56 @@
+Q1.Show name and population of the cities where the population is over 10000
+
+> db.impdata.find({city:{$exists: true},pop:{$gt: 10000}}, {_id:0, city:1, pop: 1}).pretty()
+{ "city" : "PROVIDENCE", "pop" : 31069 }
+{ "city" : "NEW YORK", "pop" : 18913 }
+{ "city" : "MIAMI", "pop" : 47761 }
+{ "city" : "CRANSTON", "pop" : 25668 }
+{ "city" : "AGAWAM", "pop" : 15338 }
+
+
+
+
+
+Q2. Show the name and population of the state based on the cities shown
+
+> db.impdata.aggregate([{$match:{city:{$exists: true}}},{$group:{_id:"$state", "Total Pop": {$sum:"$pop"}}}])
+{ "_id" : "RI", "Total Pop" : 56737 }
+{ "_id" : "MA", "Total Pop" : 19212 }
+{ "_id" : "NY", "Total Pop" : 23681 }
+{ "_id" : "FL", "Total Pop" : 64691 }
+
+
+
+Q3. Show the total cities in NY as 'Population'
+
+> db.impdata.aggregate([{$match:{state:"NY"}},{$group:{_id:"$state", "Total Pop": {$sum:"$pop"}}}])
+{ "_id" : "NY", "Total Pop" : 23681 }
+
+
+
+
+Q4. Show the _id, city, name of the capital city of each state with a popultaion greater than 20,000.
+
+> db.impdata.find({city: {$exists: true}, pop: {$gt: 20000}}, {city: 1, "capital.name":1}).pretty()
+{
+        "_id" : "02906",
+        "city" : "PROVIDENCE",
+        "capital" : {
+                "name" : "Providence"
+        }
+}
+{
+        "_id" : "33125",
+        "city" : "MIAMI",
+        "capital" : {
+                "name" : "Tallahassee"
+        }
+}
+{
+        "_id" : "02907",
+        "city" : "CRANSTON",
+        "capital" : {
+                "name" : "Providence"
+        }
+}
+===============================================================

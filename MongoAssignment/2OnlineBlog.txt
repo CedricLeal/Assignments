@@ -1,0 +1,248 @@
+> db.users.insertMany([{_id:1, username: "GoodGuyGreg", first_name: "Good Guy", last_name: "Greg"}, {_id:2,username: "ScumbagSteve", first_name: "Scumbag", last_name: "Steve"}])
+{ "acknowledged" : true, "insertedIds" : [ 1, 2 ] }
+
+
+
+
+> db.posts.insertMany([{username: "GoodGuyGreg", title: "Passes out at party", body: "Wakes up early and cleans house"}, {username: "GoodGuyGreg", title: "Steals your identity", body: "Raises your credit score"}, {username: "GoodGuyGreg", title: "Reports a bug in your code", body: "Sends you a Pull Request"}, {username: "ScumbagSteve", title:"Borrows something", body: "Sells it"}, {username: "ScumbagSteve", title: "Borrows everything", body: "the end"}, {username: "ScumbagSteve", title: "Forks your repo on github", body: "Sets to private"}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("62471e70b75eb5fe46ed18b5"),
+                ObjectId("62471e70b75eb5fe46ed18b6"),
+                ObjectId("62471e70b75eb5fe46ed18b7"),
+                ObjectId("62471e70b75eb5fe46ed18b8"),
+                ObjectId("62471e70b75eb5fe46ed18b9"),
+                ObjectId("62471e70b75eb5fe46ed18ba")
+        ]
+}
+
+
+
+> db.comment.insertOne({username: "GoodGuyGreg", comment: "Hope you got a good deal!", post: ObjectId("62471e70b75eb5fe46ed18b8")})
+{
+        "acknowledged" : true,
+        "insertedId" : ObjectId("6247203eb75eb5fe46ed18bb")
+}
+
+> db.comment.insertMany([{username: "GoodGuyGreg", comment: "What's mine is yours!", post: ObjectId("62471e70b75eb5fe46ed18b9")}, {username: "GoodGuyGreg", comment: "Don't violate the licensing agreement!", post: ObjectId("62471e70b75eb5fe46ed18ba")}, {username: "ScumbagSteve", comment: "It still isn't clean", post: ObjectId("62471e70b75eb5fe46ed18b5")}, {username: "ScumbagSteve", comment: "Denied your PR cause I found a hack", post: ObjectId("62471e70b75eb5fe46ed18b7")}])
+{
+        "acknowledged" : true,
+        "insertedIds" : [
+                ObjectId("62472201b75eb5fe46ed18bc"),
+                ObjectId("62472201b75eb5fe46ed18bd"),
+                ObjectId("62472201b75eb5fe46ed18be"),
+                ObjectId("62472201b75eb5fe46ed18bf")
+        ]
+}
+
+
+##################################
+Q1. find all users
+
+> db.users.find().pretty()
+{
+        "_id" : 1,
+        "username" : "GoodGuyGreg",
+        "first_name" : "Good Guy",
+        "last_name" : "Greg"
+}
+{
+        "_id" : 2,
+        "username" : "ScumbagSteve",
+        "first_name" : "Scumbag",
+        "last_name" : "Steve"
+}
+
+
+Q2. find all posts
+> db.posts.find().pretty()
+{
+        "_id" : ObjectId("62471e70b75eb5fe46ed18b5"),
+        "username" : "GoodGuyGreg",
+        "title" : "Passes out at party",
+        "body" : "Wakes up early and cleans house"
+}
+{
+        "_id" : ObjectId("62471e70b75eb5fe46ed18b6"),
+        "username" : "GoodGuyGreg",
+        "title" : "Steals your identity",
+        "body" : "Raises your credit score"
+}
+{
+        "_id" : ObjectId("62471e70b75eb5fe46ed18b7"),
+        "username" : "GoodGuyGreg",
+        "title" : "Reports a bug in your code",
+        "body" : "Sends you a Pull Request"
+}
+{
+        "_id" : ObjectId("62471e70b75eb5fe46ed18b8"),
+        "username" : "ScumbagSteve",
+        "title" : "Borrows something",
+        "body" : "Sells it"
+}
+{
+        "_id" : ObjectId("62471e70b75eb5fe46ed18b9"),
+        "username" : "ScumbagSteve",
+        "title" : "Borrows everything",
+        "body" : "the end"
+}
+{
+        "_id" : ObjectId("62471e70b75eb5fe46ed18ba"),
+        "username" : "ScumbagSteve",
+        "title" : "Forks your repo on github",
+        "body" : "Sets to private"
+}
+
+
+
+Q3. find all posts that was authored by "GoodGuyGreg"
+
+> db.posts.find({username: "GoodGuyGreg"}).pretty()
+{
+        "_id" : ObjectId("62471e70b75eb5fe46ed18b5"),
+        "username" : "GoodGuyGreg",
+        "title" : "Passes out at party",
+        "body" : "Wakes up early and cleans house"
+}
+{
+        "_id" : ObjectId("62471e70b75eb5fe46ed18b6"),
+        "username" : "GoodGuyGreg",
+        "title" : "Steals your identity",
+        "body" : "Raises your credit score"
+}
+{
+        "_id" : ObjectId("62471e70b75eb5fe46ed18b7"),
+        "username" : "GoodGuyGreg",
+        "title" : "Reports a bug in your code",
+        "body" : "Sends you a Pull Request"
+}
+
+
+
+Q4. find all posts that was authored by "ScumbagSteve"
+
+> db.posts.find({username: "ScumbagSteve"}).pretty()
+{
+        "_id" : ObjectId("62471e70b75eb5fe46ed18b8"),
+        "username" : "ScumbagSteve",
+        "title" : "Borrows something",
+        "body" : "Sells it"
+}
+{
+        "_id" : ObjectId("62471e70b75eb5fe46ed18b9"),
+        "username" : "ScumbagSteve",
+        "title" : "Borrows everything",
+        "body" : "the end"
+}
+{
+        "_id" : ObjectId("62471e70b75eb5fe46ed18ba"),
+        "username" : "ScumbagSteve",
+        "title" : "Forks your repo on github",
+        "body" : "Sets to private"
+}
+
+
+
+Q5. find all comments
+
+> db.comment.find().pretty()
+{
+        "_id" : ObjectId("6247203eb75eb5fe46ed18bb"),
+        "username" : "GoodGuyGreg",
+        "comment" : "Hope you got a good deal!",
+        "post" : ObjectId("62471e70b75eb5fe46ed18b8")
+}
+{
+        "_id" : ObjectId("62472201b75eb5fe46ed18bc"),
+        "username" : "GoodGuyGreg",
+        "comment" : "What's mine is yours!",
+        "post" : ObjectId("62471e70b75eb5fe46ed18b9")
+}
+{
+        "_id" : ObjectId("62472201b75eb5fe46ed18bd"),
+        "username" : "GoodGuyGreg",
+        "comment" : "Don't violate the licensing agreement!",
+        "post" : ObjectId("62471e70b75eb5fe46ed18ba")
+}
+{
+        "_id" : ObjectId("62472201b75eb5fe46ed18be"),
+        "username" : "ScumbagSteve",
+        "comment" : "It still isn't clean",
+        "post" : ObjectId("62471e70b75eb5fe46ed18b5")
+}
+{
+        "_id" : ObjectId("62472201b75eb5fe46ed18bf"),
+        "username" : "ScumbagSteve",
+        "comment" : "Denied your PR cause I found a hack",
+        "post" : ObjectId("62471e70b75eb5fe46ed18b7")
+}
+
+
+
+
+Q6.find all comments that was authored by "GoodGuyGreg"
+
+> db.comment.find({username: "GoodGuyGreg"}).pretty()
+{
+        "_id" : ObjectId("6247203eb75eb5fe46ed18bb"),
+        "username" : "GoodGuyGreg",
+        "comment" : "Hope you got a good deal!",
+        "post" : ObjectId("62471e70b75eb5fe46ed18b8")
+}
+{
+        "_id" : ObjectId("62472201b75eb5fe46ed18bc"),
+        "username" : "GoodGuyGreg",
+        "comment" : "What's mine is yours!",
+        "post" : ObjectId("62471e70b75eb5fe46ed18b9")
+}
+{
+        "_id" : ObjectId("62472201b75eb5fe46ed18bd"),
+        "username" : "GoodGuyGreg",
+        "comment" : "Don't violate the licensing agreement!",
+        "post" : ObjectId("62471e70b75eb5fe46ed18ba")
+}
+
+
+
+Q7.find all comments that was authored by "ScumbagSteve"
+
+> db.comment.find({username: "ScumbagSteve"}).pretty()
+{
+        "_id" : ObjectId("62472201b75eb5fe46ed18be"),
+        "username" : "ScumbagSteve",
+        "comment" : "It still isn't clean",
+        "post" : ObjectId("62471e70b75eb5fe46ed18b5")
+}
+{
+        "_id" : ObjectId("62472201b75eb5fe46ed18bf"),
+        "username" : "ScumbagSteve",
+        "comment" : "Denied your PR cause I found a hack",
+        "post" : ObjectId("62471e70b75eb5fe46ed18b7")
+}
+
+
+Q8. find all comments belonging to the post "Reports a bug in your code"
+
+> db.comment.find({post: ObjectId("62471e70b75eb5fe46ed18b7")}).pretty()
+{
+        "_id" : ObjectId("62472201b75eb5fe46ed18bf"),
+        "username" : "ScumbagSteve",
+        "comment" : "Denied your PR cause I found a hack",
+        "post" : ObjectId("62471e70b75eb5fe46ed18b7")
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
